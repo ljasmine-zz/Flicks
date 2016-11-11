@@ -6,19 +6,44 @@ import {
   View,
   Text,
   Navigator,
+  StyleSheet,
   TouchableOpacity,
+  BackAndroid,
+  Platform
 } from 'react-native'
 
 const navBarHeight = 60
-const navBarStyle = {
-  paddingTop: navBarHeight,
-  backgroundColor: 'rgb(255, 187, 36)'
+
+const styles = StyleSheet.create({
+  navBarStyle: {
+    paddingTop: navBarHeight,
+    backgroundColor: 'rgb(255, 187, 36)',
+  },
+  navBarTitleStyle: {
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+})
+
+let navRef = null
+if (Platform.OS === 'android') {
+
+BackAndroid.addEventListener('hardwareBackPress', () => {
+  if (navRef && navRef.getCurrentRoutes().length > 1) {
+    navRef.pop()
+    return true
+  }
+  return false
+  })
 }
+
 const App = () => (
   <Navigator
     style={{ paddingTop: navBarHeight }}
     initialRoute={{ key: 'movies' }}
     renderScene={(route, navigator) => {
+      navRef = navigator
       if (route.key === 'movies') {
         return <Movies onSelectMovie={(movie) => navigator.push({ key: 'details', movie })}/>
       }
@@ -32,7 +57,7 @@ const App = () => (
     configureScene={() => Navigator.SceneConfigs.PushFromRight}
     navigationBar={
       <Navigator.NavigationBar
-        style={navBarStyle}
+        style={styles.navBarStyle}
         routeMapper={{
           LeftButton: (route, navigator) => {
             if (route.key === 'movies') return null
@@ -45,7 +70,7 @@ const App = () => (
           RightButton: () => {},
           Title: (route) => {
             if (route.key === 'movies') {
-              return <Text>Now Playing</Text>
+              return <Text style={styles.navBarTitleStyle}>Now Playing</Text>
             }
             return null
           },
