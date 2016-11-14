@@ -103,6 +103,7 @@ class Movies extends React.Component {
     }
     return (
       <ListView
+        removeClippedSubviews={false}
         refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
