@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native'
 import * as api from './api'
 import MovieCell from './MovieCell'
@@ -21,15 +22,18 @@ const styles = StyleSheet.create({
   },
 })
 
-class App extends React.Component {
+class Movies extends React.Component {
   static propTypes = {
     onSelectMovie: React.PropTypes.func.isRequired,
+    tabIndex: React.PropTypes.number.isRequired,
   }
 
   state = {
+    isError: false,
     isLoading: true,
     isEmpty: false,
-    dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+    refreshing: false,
   }
 
   componentDidMount() {
@@ -38,17 +42,40 @@ class App extends React.Component {
 
   fetchMovies () {
     this.setState({ isLoading: true })
-    api.fetchMovies()
+    if (this.props.tabIndex === 1) {
+      api.fetchNowPlayingMovies()
       .then(results => this.updateRows(results))
       .catch(error => {
-        this.setState({ isLoading: false })
+        this.setState({
+          refreshing: false,
+          isLoading: false,
+          isError: true,
+        })
         console.error(error)
       })
+    } else {
+      api.fetchTopRatedMovies()
+      .then(results => this.updateRows(results))
+      .catch(error => {
+        this.setState({
+          refreshing: false,
+          isLoading: false,
+          isError: true,
+        })
+        console.error(error)
+      })
+    }
+  }
+
+  _onRefresh() {
+    this.setState({refreshing: true})
+    this.fetchMovies()
   }
 
   updateRows(rows) {
     this.setState({
       isLoading: false,
+      refreshing: false,
       isEmpty: rows.length === 0,
       dataSource: this.state.dataSource.cloneWithRows(rows),
     })
@@ -67,9 +94,21 @@ class App extends React.Component {
           <Text>No results found</Text>
         </View>
       )
+    } else if (this.state.isError) {
+      return (
+        <View style={[ styles.container, styles.centering ]}>
+          <Text>Network Error</Text>
+        </View>
+      )
     }
     return (
       <ListView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
         style={styles.container}
         dataSource={this.state.dataSource}
         renderRow={row => (
@@ -82,4 +121,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Movies;

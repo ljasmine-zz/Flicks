@@ -1,6 +1,6 @@
-# Project 1 - *Name of App Here*
+# Project 1 - *Flicks*
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **X** hours spent in total
 
@@ -8,14 +8,14 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ ] User can view a list of movies currently playing in theaters. Poster images load asynchronously.
-- [ ] User can view movie details by tapping on a cell.
-- [ ] User can use hardware back button on Android to navigate.
-- [ ] User can change the orientation of the phone to switch from landscape and portrait customized views.
-- [ ] User sees loading state while waiting for the API.
-- [ ] User sees an error message when there is a network error.
-- [ ] User can pull to refresh the movie list.
-- [ ] Add a cross-platform tab bar for **Now Playing** and **Top Rated** movies.
+- [X] User can view a list of movies currently playing in theaters. Poster images load asynchronously.
+- [X] User can view movie details by tapping on a cell.
+- [X] User can use hardware back button on Android to navigate.
+- [X] User can change the orientation of the phone to switch from landscape and portrait customized views.
+- [X] User sees loading state while waiting for the API.
+- [X] User sees an error message when there is a network error.
+- [X] User can pull to refresh the movie list.
+- [X] Add a cross-platform tab bar for **Now Playing** and **Top Rated** movies.
 
 The following **optional** features are implemented:
 
@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 - [ ] User sees a play icon overlay on backdrop image if movie trailer is available.
 - [ ] User can tap on a button to play the movie trailer.
 - [ ] Tapping on a movie poster image shows the movie poster as full screen and zoomable.
-- [ ] All images fade in and progressively load low resolution to high resolution.
+- [X] All images fade in and progressively load low resolution to high resolution.
 - [ ] Search bar animates with scroll.
 
 The following **additional** features are implemented:
@@ -48,7 +48,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Jasmine Lee]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

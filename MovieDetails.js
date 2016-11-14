@@ -10,14 +10,14 @@ import ProgressiveImage from './ProgressiveImage'
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    padding: 10,
-    borderWidth: 0.5,
-    borderColor: 'rgb(150, 150, 150)',
+    flex: 1,
+    backgroundColor: 'rgb(255, 187, 36)',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'center',
   },
   title: {
     fontSize: 16,
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   },
   poster: {
     marginRight: 10,
-    width: 100,
-    height: 100,
+    width: 300,
+    height: 300,
   }
 })
 const MovieCell = ({ movie }) => (
@@ -43,8 +43,8 @@ const MovieCell = ({ movie }) => (
       sourceLow={{ uri: api.getPosterUrlLow(movie.poster_path) }}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title} numberOfLines={1}>{movie.title}</Text>
-        <Text style={styles.overview} numberOfLines={3}>{movie.overview}</Text>
+        <Text style={styles.title} >{movie.title}</Text>
+        <Text style={styles.overview} >{movie.overview}</Text>
       </View>
   </View>
 )
